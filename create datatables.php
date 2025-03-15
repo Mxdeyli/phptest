@@ -19,6 +19,7 @@
             die("连接失败: " . $conn->connect_error);
         } 
         echo "连接成功";
+        //first save set
 
         // 使用 sql 创建数据表
         $sql = "CREATE TABLE MyGuests (
