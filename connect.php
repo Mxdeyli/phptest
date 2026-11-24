@@ -1,35 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>初始化数据库</title>
 </head>
 <body>
-   <?php
-        //PHP连接mysql四步
-        //第一步连接登录mysql数据库
-    $servername = "localhost";
-    $username = "root";
-    $password = "123456";
- 
-        // 创建连接
-    $conn = new mysqli($servername, $username, $password);
-        // Check connection
-    if ($conn->connect_error) {
-        die("连接失败: " . $conn->connect_error);
-    }
-    echo "连接成功";
- 
-        //第二步创建数据库myTestPhpDB
-    $sql = "CREATE DATABASE myTestPhpDB";
-    if ($conn->query($sql) === TRUE) {
-        echo "数据库创建成功";
-    } else {
-        echo "Error creating database: " . $conn->error;
-    }
+    <?php
+    require_once __DIR__ . '/database.php';
 
-    $conn->close();
-   ?> 
+    try {
+        $connection = openDatabase(null);
+        $connection->query("CREATE DATABASE IF NOT EXISTS myTestPhpDB CHARACTER SET utf8mb4");
+        $connection->close();
+        echo '初始化数据库成功。';
+    } catch (mysqli_sql_exception $error) {
+        error_log($error->getMessage());
+        echo '初始化数据库失败，请检查数据库连接和权限。';
+    }
+    ?>
 </body>
 </html>

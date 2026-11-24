@@ -7,16 +7,8 @@
 </head>
 <body>
     <?php
-        $palindromes=124421;
-        $a=strrev($palindromes);
-        if($a==$palindromes)
-        {
-            echo "true";
-        }
-        else
-        {
-            echo "false";
-        }
+        $number = '124421';
+        echo $number === strrev($number) ? 'true' : 'false';
     ?>
 </body>
 </html>
